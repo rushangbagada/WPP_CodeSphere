@@ -1,128 +1,113 @@
-
 import { useState, useEffect } from 'react';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
-// Sample images with proper URLs
-const slideImages = [
-  { 
-    src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80", 
-    caption: "Code Your Future",
-    description: "Unlock your potential with cutting-edge programming skills"
+// Sample slides data
+const slides = [
+  {
+    id: 1,
+    title: "Master Data Structures & Algorithms",
+    description: "Learn the essential building blocks of computer science with our carefully structured curriculum.",
+    image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80",
+    buttonText: "Explore Courses",
+    buttonLink: "/courses"
   },
-  { 
-    src: "https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80", 
-    caption: "Learn Advanced Algorithms",
-    description: "Master the fundamentals of computer science and problem-solving"
+  {
+    id: 2,
+    title: "Ace Your Technical Interviews",
+    description: "Practice with our collection of interview questions from top tech companies and stand out from the crowd.",
+    image: "https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80",
+    buttonText: "Start Practicing",
+    buttonLink: "/practice"
   },
-  { 
-    src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80", 
-    caption: "Build Amazing Projects",
-    description: "Create real-world applications with expert guidance"
-  },
-  { 
-    src: "https://images.unsplash.com/photo-1522252234503-e356532cafd5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80", 
-    caption: "Join Our Community",
-    description: "Connect with peers and mentors in a supportive environment"
+  {
+    id: 3,
+    title: "Join Our Coding Community",
+    description: "Connect with like-minded programmers, participate in contests, and accelerate your growth together.",
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80",
+    buttonText: "Join Community",
+    buttonLink: "/community"
   }
 ];
 
 const Slideshow = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isLoaded, setIsLoaded] = useState<boolean[]>(Array(slideImages.length).fill(false));
+
+  // Auto-rotate slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === slideImages.length - 1 ? 0 : prev + 1));
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? slideImages.length - 1 : prev - 1));
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
-
-  const handleImageLoad = (index: number) => {
-    const newLoaded = [...isLoaded];
-    newLoaded[index] = true;
-    setIsLoaded(newLoaded);
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
-    <div className="relative max-w-7xl mx-auto mt-24 px-4 sm:px-6 lg:px-8">
-      <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-brand-purple/30 bg-black/20 h-[500px] md:h-[550px]">
-        {slideImages.map((slide, index) => (
+    <div className="relative w-full h-screen overflow-hidden mt-0">
+      {/* Navigation arrows */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 z-20 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full focus:outline-none"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft size={24} />
+      </button>
+
+      <button
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 z-20 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full focus:outline-none"
+        aria-label="Next slide"
+      >
+        <ChevronRight size={24} />
+      </button>
+
+      {/* Slides */}
+      <div className="relative w-full h-full">
+        {slides.map((slide, index) => (
           <div
-            key={index}
-            className={`transition-all duration-1000 absolute inset-0 ${
+            key={slide.id}
+            className={`absolute inset-0 transition-opacity duration-500 ${
               index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
           >
-            {!isLoaded[index] && (
-              <div className="absolute inset-0 bg-gradient-to-r from-code-dark to-code-dark-light animate-pulse flex items-center justify-center">
-                <div className="w-16 h-16 border-4 border-brand-purple/50 border-t-brand-purple rounded-full animate-spin"></div>
-              </div>
-            )}
-            
-            <img
-              src={slide.src}
-              alt={`Slide ${index + 1}`}
-              className="w-full h-full object-cover opacity-70"
-              style={{ display: isLoaded[index] ? 'block' : 'none' }}
-              onLoad={() => handleImageLoad(index)}
-            />
-            
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-            
-            <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-              <div className="max-w-3xl mx-auto text-center">
-                <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-brand-purple-light to-brand-cyan animate-pulse-soft">
-                  {slide.caption}
-                </h2>
-                <p className="text-xl text-gray-300 mb-6">{slide.description}</p>
-                <button className="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-purple to-brand-cyan  font-semibold hover:opacity-90 transition-opacity">
-                  Get Started
-                </button>
+            {/* Background image */}
+            <div
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: `url(${slide.image})` }}
+            >
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/70"></div>
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 flex items-center justify-center h-full">
+              <div className="text-center max-w-3xl px-4">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-cyan">
+                  {slide.title}
+                </h1>
+                <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto">
+                  {slide.description}
+                </p>
+                <Link to={slide.buttonLink}>
+                  <Button
+                    size="lg"
+                    className="px-8 py-6 bg-gradient-to-r from-brand-purple to-brand-cyan hover:opacity-90 transition-all text-lg"
+                  >
+                    {slide.buttonText}
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
-        ))}
-
-        <button
-          onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-black/60 text-white p-3 rounded-full transition-colors border border-brand-purple/30 backdrop-blur-sm"
-          aria-label="Previous slide"
-        >
-          <ArrowLeft size={20} />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-black/60 text-white p-3 rounded-full transition-colors border border-brand-purple/30 backdrop-blur-sm"
-          aria-label="Next slide"
-        >
-          <ArrowRight size={20} />
-        </button>
-      </div>
-
-      <div className="flex justify-center mt-6 space-x-3">
-        {slideImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide
-                ? 'bg-brand-purple w-8'
-                : 'bg-gray-300 hover:bg-gray-400'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
         ))}
       </div>
     </div>
