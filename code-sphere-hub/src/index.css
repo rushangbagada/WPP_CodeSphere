@@ -1,0 +1,449 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000;
+  --container-bg: #ffffff;
+  --button-bg: #013a55;
+  --button-hover-bg: #008ecf;
+  --input-bg: #ffffff;
+  --input-text: #000;
+}
+
+.dark-mode {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --container-bg: #1e1e1e;
+  --button-bg: #203945;
+  --button-hover-bg: #005f8c;
+  --input-bg: #333;
+  --input-text: #fff;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+@layer base {
+  /* Reset existing root max-width constraint */
+  #root {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  .logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
+  }
+
+  .logo:hover {
+    filter: drop-shadow(0 0 2em #646cffaa);
+  }
+
+  .logo.react:hover {
+    filter: drop-shadow(0 0 2em #61dafbaa);
+  }
+
+  @keyframes logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    a:nth-of-type(2) .logo {
+      animation: logo-spin infinite 20s linear;
+    }
+  }
+
+  .card {
+    padding: 2em;
+  }
+
+  .read-the-docs {
+    color: #888;
+  }
+}
+
+@layer components {
+  * {
+    box-sizing: border-box;
+  }
+
+  .main {
+    font-family: 'Montserrat', sans-serif;
+    /* background: #f6f5f7; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: -20px 0 50px;
+    margin-top: 20px;
+  }
+
+  h1 {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: .5px;
+    margin: 20px 0 30px;
+  }
+
+  span {
+    font-size: 12px;
+  }
+
+  a {
+    color: #0e263d;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+  }
+
+  .container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(174, 59, 255, 0.2), 0 10px 10px rgba(0, 0, 0, .2);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+  }
+
+  .form-container form {
+    background: #13a6a8;
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .social-container {
+    margin: 10px 0;
+  }
+
+  .social-container a {
+    border: 1px solid #233e4a;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+  }
+
+  .form-container input {
+    background: #ffffff;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+  }
+
+  button {
+    border-radius: 20px;
+    border: 2px solid #008ecf;
+    background: #004d71;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+
+  }
+
+  .button:hover {
+    background: #008ecf;
+    transform: scale(10px);
+  }
+
+  .button:active {
+    transform: scale(.95);
+  }
+
+  .button:focus {
+    outline: none;
+  }
+
+  .button.ghost {
+    background: #0682bc;
+    border-color: #fff;
+  }
+
+  .button.ghost:hover {
+    background: #008ecf;
+    transform: scale(10px);
+
+
+  }
+
+  .form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all .6s ease-in-out;
+  }
+
+  .sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+  }
+
+  .sign-up-container {
+    left: 0;
+    width: 50%;
+    z-index: 1;
+    opacity: 0;
+  }
+
+  .overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform .6s ease-in-out;
+    z-index: 100;
+  }
+
+  .overlay {
+    background: #0f0406;
+    background: linear-gradient(to right, #3d0361, #32ddff, #3d0361) no-repeat 0 0 / cover;
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateY(0);
+    transition: transform .6s ease-in-out;
+  }
+
+  .overlay-panel {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    height: 100%;
+    width: 50%;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform .6s ease-in-out;
+  }
+
+  .overlay-right {
+    right: 0;
+    transform: translateY(0);
+  }
+
+  .overlay-left {
+    transform: translateY(-20%);
+  }
+
+  /* Move signin to right */
+  .container.right-panel-active .sign-in-container {
+    transform: translateY(100%);
+  }
+
+  /* Move overlay to left */
+  .container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+  }
+
+  /* Bring signup over signin */
+  .container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+  }
+
+  /* Move overlay back to right */
+  .container.right-panel-active .overlay {
+    transform: translateX(50%);
+  }
+
+  /* Bring back the text to center */
+  .container.right-panel-active .overlay-left {
+    transform: translateY(0);
+  }
+
+  /* Same effect for right */
+  .container.right-panel-active .overlay-right {
+    transform: translateY(20%);
+  }
+
+  :root {
+    --bg-color: #fff;
+    --text-color: #000;
+    --container-bg: #fff;
+    --button-bg: #013a55;
+    --button-hover-bg: #008ecf;
+  }
+
+  .dark-mode {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --container-bg: #1e1e1e;
+    --button-bg: #203945;
+    --button-hover-bg: #005f8c;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .container {
+    background-color: var(--container-bg);
+  }
+
+  button {
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    transition: background 0.3s;
+  }
+
+  button:hover {
+    background-color: var(--button-hover-bg);
+  }
+
+  /* Dark Mode Toggle Button */
+  .dark-mode-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background: var(--button-bg);
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .dark-mode-toggle:hover {
+    background: var(--button-hover-bg);
+  }
+
+  :root {
+    --bg-color: #ffffff;
+    /* Light mode background is now explicitly white */
+    --text-color: #000;
+    --container-bg: #ffffff;
+    --button-bg: #013a55;
+    --button-hover-bg: #008ecf;
+    --input-bg: #ffffff;
+    --input-text: #000;
+  }
+
+  .dark-mode {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --container-bg: #1e1e1e;
+    --button-bg: #203945;
+    --button-hover-bg: #005f8c;
+    --input-bg: #333;
+    --input-text: #fff;
+  }
+
+  body {
+    background-color: var(--bg-color) !important;
+    /* Ensure background applies correctly */
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .container {
+    background-color: var(--container-bg);
+  }
+
+  button {
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    transition: background 0.3s;
+  }
+
+  button:hover {
+    background-color: var(--button-hover-bg);
+  }
+
+  .form-container input {
+    background: var(--input-bg);
+    color: var(--input-text);
+  }
+
+  /* Dark Mode Toggle Button */
+  .dark-mode-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background: var(--button-bg);
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .dark-mode-toggle:hover {
+    background: var(--button-hover-bg);
+  }
+}
+
+/* Login page animation overrides */
+.right-panel-active .sign-in-container {
+  transform: translateY(100%);
+}
+
+.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+}
+
+.right-panel-active .sign-up-container {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+}
+
+.right-panel-active .overlay {
+  transform: translateX(50%);
+}
+
+.right-panel-active .overlay-left {
+  transform: translateY(0);
+}
+
+.right-panel-active .overlay-right {
+  transform: translateY(20%);
+}
