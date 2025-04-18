@@ -50,15 +50,14 @@ const DataStructures = () => {
   // Sort problems based on selected field and direction
   const sortedProblems = [...filteredProblems].sort((a, b) => {
     if (sortField === "name") {
-      return sortDirection === "asc" 
-        ? a.name.localeCompare(b.name) 
-        : b.name.localeCompare(a.name);
+      return a.name.localeCompare(b.name) 
+        
     } else {
       const difficultyOrder = { "Easy": 1, "Medium": 2, "Hard": 3 };
       const diffA = difficultyOrder[a.difficulty as keyof typeof difficultyOrder];
       const diffB = difficultyOrder[b.difficulty as keyof typeof difficultyOrder];
-      return sortDirection === "asc" ? diffA - diffB : diffB - diffA;
-    }
+      return  diffA - diffB 
+    } 
   });
 
   // Handle sort changes

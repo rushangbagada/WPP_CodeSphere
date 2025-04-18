@@ -40,9 +40,7 @@ const FeatureCard = ({ icon, title, description, image, index, darkMode }: Featu
         <p className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} leading-relaxed`}>
           {description}
         </p>
-        <button className="mt-6 rounded-xl px-4 py-2  bg-gradient-to-r from-brand-purple to-brand-cyan text-white font-medium hover:opacity-90 transition-opacity">
-          Learn More
-        </button>
+        
       </div>
       <div className="md:w-2/5 mt-6 md:mt-0 overflow-hidden rounded-lg">
         <div className="relative group">

@@ -7,7 +7,7 @@ import CourseLevel from '../components/CourseLevel';
 import CourseFeature from '../components/CourseFeature';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Play } from 'lucide-react';
-
+import CourseVideo from '@/components/CourseVideo'; 
 // Course levels data
 const courseLevels = [
   {
@@ -239,16 +239,8 @@ const Courses = () => {
               </h2>
               
               <div className="relative aspect-video rounded-lg overflow-hidden">
-                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                  <Button size="lg" className="bg-red-600 hover:bg-red-700 rounded-full h-16 w-16 flex items-center justify-center">
-                    <Play className="h-8 w-8" />
-                  </Button>
-                </div>
-                <img 
-                  src="/lovable-uploads/376a6674-7a50-44e9-847c-ea94a3fe9ec2.png" 
-                  alt="Course level selection video thumbnail" 
-                  className="w-full h-full object-cover"
-                />
+                 <CourseVideo videoId="2kCTmlU0RPg" title="How to choose the right course level?" darkMode={darkMode} />
+               
               </div>
             </div>
           </div>

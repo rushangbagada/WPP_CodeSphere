@@ -8,7 +8,7 @@ import Index from "./pages/Index";
 
 import OurTeam from "./pages/OurTeam";
 import Courses from "./pages/Courses";
-import Problems from "./pages/Problems";
+
 import DataStructures from "./pages/DataStructures";
 import CompetitiveProgramming from "./pages/CompetitiveProgramming";
 import FAQ from "./pages/FAQ";
@@ -52,7 +52,7 @@ const App = () => (
       
           <Route path="/ourteam" element={<OurTeam />} />
           <Route path="/courses" element={<Courses />} />
-          <Route path="/problems" element={<Problems />} />
+          
           <Route path="/datastructures" element={<DataStructures />} />
           <Route path="/competitiveprogramming" element={<CompetitiveProgramming />} />
           <Route path="/faq" element={<FAQ />} />

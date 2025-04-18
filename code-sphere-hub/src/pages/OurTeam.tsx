@@ -8,22 +8,22 @@ import TeamMember from '../components/TeamMember';
 // Sample team data
 const teamMembers = [
   {
-    name: "Alex Johnson",
+    name: "Krishna tahiliani",
     role: "Lead Developer",
     bio: "Full-stack developer with 8 years of experience in building scalable web applications and mentoring junior developers.",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+    image: "https://media-hosting.imagekit.io/bcbef1165755485c/WhatsApp%20Image%202025-04-16%20at%2000.10.18_dcdddf8e.jpg?Expires=1839563866&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=gNlyq1bvs~9W7uSg5lzZ8IjVi2jZJ8lpZSJvYztP69ccLC~FBsQeCnEE68IDJ~8sHPLnXOsfd9ENHnYTlultHQL5PlcsRpLkJzaqvPQpK~dxnUSTCynAs52DYbdQJSSfY6lJeVWnzS7ASwzky6ynTeaMTMYQppqKU~CdXBuVupR5jcuJFVqcGGBb65Q6vHhtnDhj9K2CxUkntuk1MG4ljUMNDt5mmyPjxQb5OeVpyBwdbA6rTJqlb2ihMOSn0CrVPD~KWMLuJdPVsGRDAGk57JPDkkFHhLuiqpbW7RC47cn22854RVsgtO3tOmyvJ~DRIJ8hQ18ng0uFhtPlNnyVQg__"
   },
   {
-    name: "Sarah Chen",
+    name: "Rushang Bagada",
     role: "UI/UX Designer",
     bio: "Creative designer with a passion for creating intuitive user experiences and beautiful interfaces that delight users.",
-    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+    image: "https://media-hosting.imagekit.io/31e4de84471f4e05/WhatsApp%20Image%202025-04-18%20at%2011.31.42_761bf99e.jpg?Expires=1839564154&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=cE7qz0aDP02A9E7q9uvm-6VEyKGJVT0kQhI6E5RA4JxVDEU1sXqJ16V5Bz-FrQN8FZfRlRDESQOHSV5BcUUAgagHIyc2DtlZW7yM-It4u02C6YonmXHbLTOxJ2blL6~kp8GDIK3R2hjkiURk4hW9qeYyCgG6jFdAS6FKwBeckYih6BAXzIjqKnOD-rNKj9woibB-I8DELYbxnw7JbfBZQQPJFEK0-t2Uw2ASfHeSAh5zbiQuouP1xx5qdmd3W3wUpVGnHnH8I1aQGXMGZaqqset4SFPJ4BniCteuvPMB7v96sdTnEt6WHzJGej2Ljiq~c7WJFa54xKKAKAKT-LdFPw__"
   },
   {
-    name: "Michael Rodriguez",
+    name: "Rudraksh Fanse",
     role: "Backend Engineer",
     bio: "Systems architect specializing in high-performance computing and distributed systems with a focus on security.",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+    image: "https://media-hosting.imagekit.io/46d2fc0a6b88461b/WhatsApp%20Image%202025-04-18%20at%2012.12.29_dd72beb1.jpg?Expires=1839566607&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=0A01kBADWMSSY103Sj9IQahd3U~kLnxVMTnlpci4bsF0Vds5XwBSGzLy4TKqdXR89JTWop3fNI4eGiAFB796IxXFy~hRyC4Q~LfTP5wD~ACVOt61eUQ6ZAUX58~1~XNDh80fTu4XCf20eGCip-Nsu~h02AEHKM~hk4VIUQwFKHvXyoHzKPCCXTtEH5mVdupqRUgcHPlYELgSRgxeWXrCwnLs-4UVsTeQZDaxUIZnUZscMdCmHCAkWRDo8Q3lGcd6oGvjyxQUe7XVzPw4HzOArK0GxiWGQZi1oPYISHXSgkR-73Lfml52CCwDhNNvPqwoJiGxFMYb7Jdw8Yj0TajPYg__"
   },
 
 ];

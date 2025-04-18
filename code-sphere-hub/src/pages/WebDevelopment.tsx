@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const WebDevelopment = () => {
   const [darkMode, setDarkMode] = useState(true);
   
-  // Sync dark mode with document and localStorage
+
   useEffect(() => {
     const isDarkMode = localStorage.getItem("dark-mode") === "enabled";
     setDarkMode(isDarkMode);
