@@ -32,8 +32,8 @@ const FeatureCard = ({ icon, title, description, image, index, darkMode }: Featu
     >
       <div className={`md:w-3/5 p-4 ${isEven ? 'md:pr-6' : 'md:pl-6'}`}>
         <h3 className={`text-3xl md:text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-800'} mb-4 flex items-center`}>
-          <span className="mr-2 text-3xl">{icon}</span>
-          <span className="bg-clip-text  text-transparent bg-gradient-to-r from-brand-purple-light to-brand-cyan">
+          <span className="mr-2 text-2xl">{icon}</span>
+          <span className="bg-clip-text text-3xl  text-transparent bg-gradient-to-r from-brand-purple-light to-brand-cyan">
             {title}
           </span>
         </h3>

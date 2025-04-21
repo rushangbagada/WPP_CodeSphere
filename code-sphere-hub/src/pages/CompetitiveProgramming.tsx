@@ -1,13 +1,14 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Award, Clock, TrendingUp, Code } from 'lucide-react';
+import { toast } from 'sonner';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 // Sample competitive programming problems
 const competitiveProblems = [
@@ -28,6 +29,11 @@ const upcomingContests = [
   { id: 3, name: "Monthly Challenge", date: "May 5, 2025", time: "11:00 AM", duration: "3 hours" }
 ];
 
+interface ProblemStatus {
+  isDone: boolean;
+  toRevisit: boolean;
+}
+
 const CompetitiveProgramming = () => {
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("dark-mode") === "enabled";
@@ -38,13 +44,44 @@ const CompetitiveProgramming = () => {
   const [sortField, setSortField] = useState<"name" | "difficulty">("name");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   
-  // Filter problems based on selected filters
+  const [problemStatuses, setProblemStatuses] = useState<Record<number, ProblemStatus>>(() => {
+    const saved = localStorage.getItem('problemStatuses');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  useEffect(() => {
+    localStorage.setItem('problemStatuses', JSON.stringify(problemStatuses));
+  }, [problemStatuses]);
+
+  const toggleProblemDone = (problemId: number) => {
+    setProblemStatuses(prev => {
+      const currentStatus = prev[problemId] || { isDone: false, toRevisit: false };
+      const newStatus = {
+        ...currentStatus,
+        isDone: !currentStatus.isDone
+      };
+      
+      return { ...prev, [problemId]: newStatus };
+    });
+  };
+
+  const toggleProblemRevisit = (problemId: number) => {
+    setProblemStatuses(prev => {
+      const currentStatus = prev[problemId] || { isDone: false, toRevisit: false };
+      const newStatus = {
+        ...currentStatus,
+        toRevisit: !currentStatus.toRevisit
+      };
+     
+      return { ...prev, [problemId]: newStatus };
+    });
+  };
+
   const filteredProblems = competitiveProblems.filter(problem => {
     return (filterDifficulty === "All" || problem.difficulty === filterDifficulty) &&
            (filterType === "All" || problem.type === filterType);
   });
-  
-  // Sort problems based on selected field and direction
+
   const sortedProblems = [...filteredProblems].sort((a, b) => {
     if (sortField === "name") {
       return sortDirection === "asc" 
@@ -58,7 +95,6 @@ const CompetitiveProgramming = () => {
     }
   });
 
-  // Handle sort changes
   const handleSort = (field: "name" | "difficulty") => {
     if (sortField === field) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -68,13 +104,10 @@ const CompetitiveProgramming = () => {
     }
   };
 
-  // Get unique problem types for filter
   const problemTypes = ["All", ...new Set(competitiveProblems.map(problem => problem.type))];
   
-  // Difficulties
   const difficulties = ["All", "Easy", "Medium", "Hard"];
 
-  // Sync dark mode with document and localStorage
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -85,7 +118,6 @@ const CompetitiveProgramming = () => {
     }
   }, [darkMode]);
 
-  // Toggle function
   const toggleDarkMode = () => {
     setDarkMode((prevMode) => !prevMode);
   };
@@ -114,7 +146,6 @@ const CompetitiveProgramming = () => {
             </p>
           </motion.div>
           
-          {/* Stats Cards */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -194,7 +225,6 @@ const CompetitiveProgramming = () => {
             </Card>
           </motion.div>
           
-          {/* Upcoming Contests */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -230,7 +260,6 @@ const CompetitiveProgramming = () => {
             </div>
           </motion.div>
           
-          {/* Problem Filters */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -287,8 +316,6 @@ const CompetitiveProgramming = () => {
               </div>
             </div>
           </motion.div>
-          
-          {/* Sort Controls */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -342,7 +369,6 @@ const CompetitiveProgramming = () => {
             </div>
           </motion.div>
           
-          {/* Problems Table */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -381,49 +407,104 @@ const CompetitiveProgramming = () => {
                         </span>
                       )}
                     </TableHead>
+                    <TableHead className={darkMode ? 'text-gray-200' : 'text-gray-800'}>Status</TableHead>
                     <TableHead className={darkMode ? 'text-gray-200' : 'text-gray-800'}>Action</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {sortedProblems.map((problem) => (
-                    <TableRow 
-                      key={problem.id}
-                      className={`${
-                        darkMode 
-                          ? 'hover:bg-code-dark-light/50' 
-                          : 'hover:bg-gray-50'
-                      }`}
-                    >
-                      <TableCell className={darkMode ? 'text-gray-200' : 'text-gray-800'}>{problem.id}</TableCell>
-                      <TableCell className={darkMode ? 'text-gray-200' : 'text-gray-800'}>
-                        <Link to={`/competitiveprogramming/problem/${problem.id}`} className="hover:underline">
-                          {problem.name}
-                        </Link>
-                      </TableCell>
-                      <TableCell className={darkMode ? 'text-gray-300' : 'text-gray-600'}>{problem.type}</TableCell>
-                      <TableCell>
-                        <span className={`px-3 py-1 rounded-full text-white text-xs ${
-                          problem.difficulty === 'Easy' ? 'bg-green-500' :
-                          problem.difficulty === 'Medium' ? 'bg-yellow-500' : 'bg-red-500'
-                        }`}>
-                          {problem.difficulty}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <Link to={`/competitiveprogramming/problem/${problem.id}`}>
-                          <Button className="rounded-lg bg-gradient-to-r from-brand-purple to-brand-cyan text-white hover:opacity-90">
-                            Solve
-                          </Button>
-                        </Link>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {sortedProblems.map((problem) => {
+                    const status = problemStatuses[problem.id] || { isDone: false, toRevisit: false };
+                    return (
+                      <TableRow 
+                        key={problem.id}
+                        className={`${
+                          darkMode 
+                            ? 'hover:bg-code-dark-light/50' 
+                            : 'hover:bg-gray-50'
+                        }`}
+                      >
+                        <TableCell className={darkMode ? 'text-gray-200' : 'text-gray-800'}>{problem.id}</TableCell>
+                        <TableCell className={darkMode ? 'text-gray-200' : 'text-gray-800'}>
+                          <a href="https://codeforces.com/contest/2096/problem/A" className="text-blue-500 hover:underline">
+                            {problem.name}
+                          </a>
+                        </TableCell>
+                        <TableCell className={darkMode ? 'text-gray-300' : 'text-gray-600'}>{problem.type}</TableCell>
+                        <TableCell>
+                          <span className={`px-3 py-1 rounded-full text-white text-xs ${
+                            problem.difficulty === 'Easy' ? 'bg-green-500' :
+                            problem.difficulty === 'Medium' ? 'bg-yellow-500' : 'bg-red-500'
+                          }`}>
+                            {problem.difficulty}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center space-x-4">
+                            <div className="flex items-center space-x-2">
+                              <Checkbox
+                                id={`done-${problem.id}`}
+                                checked={status.isDone}
+                                onCheckedChange={() => toggleProblemDone(problem.id)}
+                                className={`
+                                  ${darkMode 
+                                    ? 'border-brand-purple-light data-[state=checked]:bg-brand-purple-light' 
+                                    : 'border-blue-600 data-[state=checked]:bg-blue-600'
+                                  } 
+                                  transition-colors duration-200
+                                `}
+                              />
+                              <label
+                                htmlFor={`done-${problem.id}`}
+                                className={`text-sm ${
+                                  darkMode 
+                                    ? 'text-gray-200 hover:text-gray-100' 
+                                    : 'text-gray-700 hover:text-gray-900'
+                                } transition-colors duration-200`}
+                              >
+                                Done
+                              </label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <Checkbox
+                                id={`revisit-${problem.id}`}
+                                checked={status.toRevisit}
+                                onCheckedChange={() => toggleProblemRevisit(problem.id)}
+                                className={`
+                                  ${darkMode 
+                                    ? 'border-brand-cyan data-[state=checked]:bg-brand-cyan' 
+                                    : 'border-blue-600 data-[state=checked]:bg-blue-600'
+                                  } 
+                                  transition-colors duration-200
+                                `}
+                              />
+                              <label
+                                htmlFor={`revisit-${problem.id}`}
+                                className={`text-sm ${
+                                  darkMode 
+                                    ? 'text-gray-200 hover:text-gray-100' 
+                                    : 'text-gray-700 hover:text-gray-900'
+                                } transition-colors duration-200`}
+                              >
+                                Revisit
+                              </label>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <a href={`https://codeforces.com/contest/2096/problem/A`}>
+                            <Button className="rounded-lg bg-gradient-to-r from-brand-purple to-brand-cyan text-white hover:opacity-90">
+                              Solve
+                            </Button>
+                          </a>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </div>
           </motion.div>
           
-          {/* Tips Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

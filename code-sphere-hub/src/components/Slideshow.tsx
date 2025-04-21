@@ -97,14 +97,7 @@ const Slideshow = () => {
                 <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto">
                   {slide.description}
                 </p>
-                <Link to={slide.buttonLink}>
-                  <Button
-                    size="lg"
-                    className="px-8 py-6 bg-gradient-to-r from-brand-purple to-brand-cyan hover:opacity-90 transition-all text-lg"
-                  >
-                    {slide.buttonText}
-                  </Button>
-                </Link>
+
               </div>
             </div>
           </div>

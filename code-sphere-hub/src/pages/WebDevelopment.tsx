@@ -86,8 +86,8 @@ const WebDevelopment = () => {
                 Learn the foundation of web development with HTML
               </p>
             </div>
-            <Link 
-              to="/html"
+            <a 
+              href="https://www.w3schools.com/html/"
               className={`inline-block w-full py-3 px-6 rounded-lg text-center font-bold transition-all ${
                 darkMode 
                   ? 'bg-brand-purple text-white hover:bg-brand-purple-light' 
@@ -95,7 +95,7 @@ const WebDevelopment = () => {
               }`}
             >
               Explore HTML Topics
-            </Link>
+            </a>
           </motion.div>
           
           <motion.div
