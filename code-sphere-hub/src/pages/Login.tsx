@@ -57,7 +57,7 @@ const LoginPage = () => {
       localStorage.setItem("isLoggedIn", "true");
       navigate("/");
     } else {
-      toast.error("Invalid email or password. Please try again.");
+      alert("Invalid email or password. Please try again.");
     }
   };
 
@@ -66,7 +66,7 @@ const LoginPage = () => {
 
     // Check if the email is already registered
     if (users[registerEmail]) {
-      toast.error("This email is already registered. Please log in.");
+      alert("This email is already registered. Please log in.");
       return;
     }
 
@@ -76,7 +76,7 @@ const LoginPage = () => {
       [registerEmail]: registerPassword,
     }));
 
-    toast.success("Account created successfully! You can now log in.");
+    alert("Account created successfully! You can now log in.");
     setRightPanelActive(false); // Switch to the login panel
   };
 
